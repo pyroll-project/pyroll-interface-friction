@@ -1,0 +1,50 @@
+%! suppress = MissingImport
+%! Author = Christoph Renzing
+%! Date = 10.03.22
+
+% Preamble
+\documentclass[11pt]{PyRollDocs}
+
+\addbibresource{refs.bib}
+
+\newmintinline[py]{python}{}
+
+% Document
+\begin{document}
+
+    \title{The Interface Friction PyRolL Plugin}
+    \author{Christoph Renzing}
+    \date{\today}
+
+    \maketitle
+
+    The Interface Friction plugin serves as a base package for other plugins which include friction to calculate relevant process values.
+    It is mainly intended for calculations regarding groove filling, spread, stresses as well as forces and torques witch result from the process.
+    For further descriptions regarding friction in metal forming processes see \textcite{Black1993} or \textcite{Wilson1987}.
+
+
+    \section{Model Approach}\label{sec:model-approach}
+
+    The interface friction model introduces two variables as hooks.
+    Namely, these variables are the friction coefficient ($\mu$) according to Coulomb's sliding friction model as well as a friction factor ($m$) which is used for sticking friction.
+    Both values can be calculated using the respective other through a equation given by \textcite{Wanheim1974}.
+
+    \begin{equation}
+        \mu = \frac{m}{1 + \frac{\pi}{2} + \arccos\left( m \right) + \sqrt{1 - m ^2}}
+        \label{eq:friction-coefficient-factor}
+    \end{equation}
+
+
+    \section{Usage Instructions and Implementation Details}\label{sec:usage-instructions}
+
+    Packages residing on friction shall depend on this plugin to create a common interface.
+    In the following, the hooks defined by this plugin shall be described.
+
+    \begin{description}
+        \item[\py/RollPass.coulomb_friction_coefficient/] Friction coefficient of Coulombs friction model used for sliding friction.
+        \item[\py/RollPass.friction_factor/] Friction factor for sticking friction.
+    \end{description}
+
+    \printbibliography
+
+\end{document}
