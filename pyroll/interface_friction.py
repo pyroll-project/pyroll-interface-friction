@@ -1,12 +1,12 @@
 import numpy as np
 from scipy.optimize import root_scalar
-from pyroll.core import RollPass, Hook
+from pyroll.core import BaseRollPass, Hook
 
 VERSION = "2.0"
 
 
-@RollPass.extension_class
-class InterfaceFriction(RollPass):
+@BaseRollPass.extension_class
+class InterfaceFriction(BaseRollPass):
     coulomb_friction_coefficient = Hook[float]()
     """Friction coefficient for sliding friction resulting from Coulombs friction model."""
 
@@ -14,7 +14,7 @@ class InterfaceFriction(RollPass):
     """Friction factor for sticking friction."""
 
 
-@RollPass.coulomb_friction_coefficient
+@BaseRollPass.coulomb_friction_coefficient
 def coulomb_friction_coefficient(self: InterfaceFriction):
     if self.has_set_or_cached("friction_factor"):
         return self.friction_factor / (
@@ -24,7 +24,7 @@ def coulomb_friction_coefficient(self: InterfaceFriction):
             "Please provide either Coulomb's friction coefficient or a friction factor to use the pyroll-interface-friction-plugin.")
 
 
-@RollPass.friction_factor
+@BaseRollPass.friction_factor
 def friction_factor(self: InterfaceFriction):
     if self.has_set("coulomb_friction_coefficient"):
 
