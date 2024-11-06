@@ -2,7 +2,7 @@ import numpy as np
 from scipy.optimize import root_scalar
 from pyroll.core import BaseRollPass, Hook
 
-VERSION = "2.0.1"
+VERSION = "3.0"
 
 
 @BaseRollPass.extension_class
